@@ -21,7 +21,7 @@ import com.example.evaluabletema1.databinding.ActivityMainBinding
 
 class LlamadaActivity : AppCompatActivity() {
         private lateinit var bindingLlamada: ActivityLlamadaBinding
-        private lateinit var btnVolver : Button
+        private lateinit var btnVolver : ImageButton
         private lateinit var introduceNumero : EditText
         private lateinit var btnLlamar : ImageButton
         private var numeroTelefono : String = ""

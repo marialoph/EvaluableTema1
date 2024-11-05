@@ -14,6 +14,7 @@ import com.example.evaluabletema1.databinding.ActivityMainBinding
 import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
+    // Se crea el binding para acceder a las vistas del activity_main de forma directa
     private lateinit var bindingMain: ActivityMainBinding
     private lateinit var btnLlamar : ImageButton
     private lateinit var btnAlarma : ImageButton
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initEvent() {
+        //Al pulsar este botón nos llevará al segundo activity, para poder realizar una llamada.
         btnLlamar = bindingMain.buttonLlamar
         btnLlamar.setOnClickListener{
                 view->
@@ -43,6 +45,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Al pulsar el botón, se abrirá Spotify en el navegador.
+        // Se crea un Intent con la acción de abrir una url, y se inicia la actividad para mostrar la página.
         var url = "https://open.spotify.com/intl-es"
         btnSpotify = bindingMain.buttonSpotify
         btnSpotify.setOnClickListener{
@@ -52,6 +56,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+
+        // Al pulsar el botón, se abrirá el maps en el navegador.
+        // Se crea un Intent con la acción de abrir una url, y se inicia la actividad para mostrar la página.
         var url1 = "https://www.google.com/maps/preview"
         btnMapa = bindingMain.buttonMapa
         btnMapa.setOnClickListener{
@@ -61,6 +68,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+        //Al pulsar al boton se abrirá la aplicacion de alarma y se creará gracias al método crearAlarma()
         btnAlarma = bindingMain.buttonAlarma
         btnAlarma.setOnClickListener{
             crearAlarma()
@@ -68,18 +76,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //Este método hace que se configure una alarma que sonará en dos minutos
     private fun crearAlarma() {
         val alarma = Calendar.getInstance()
-        alarma.add(Calendar.MINUTE, 2)
+        alarma.add(Calendar.MINUTE, 2) //Sonará en dos minutos
 
         intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
-            putExtra(AlarmClock.EXTRA_MESSAGE, "Alarma en 2 minutos")
-            putExtra(AlarmClock.EXTRA_HOUR, alarma.get(Calendar.HOUR_OF_DAY))
-            putExtra(AlarmClock.EXTRA_MINUTES, alarma.get(Calendar.MINUTE))
+            putExtra(AlarmClock.EXTRA_MESSAGE, "Alarma en 2 minutos") //Mensaje de la alarma
+            putExtra(AlarmClock.EXTRA_HOUR, alarma.get(Calendar.HOUR_OF_DAY)) //Hora
+            putExtra(AlarmClock.EXTRA_MINUTES, alarma.get(Calendar.MINUTE)) //Minutos
         }
 
+        //Verifica si existe una aplicación que maneje el intent antes de lanzarlo
         if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
+            startActivity(intent)//Abre la aplicación de la alarma
         } else {
             Toast.makeText(this, "No se puede crear la alarma", Toast.LENGTH_SHORT).show()
         }
